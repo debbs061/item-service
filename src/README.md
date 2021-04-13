@@ -28,9 +28,9 @@
     │             	   ├── AppConfig
     │             	   └── ItemServiceApplication
     └── src/main/resources
-                  		 ├── static
-                  		 └── templates
-     			      └── items.html
+                       ├── static
+                       └── templates
+                               └── items.html
 
 
 ## HTTP API
