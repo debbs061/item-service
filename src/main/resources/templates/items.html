@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        $(function() {
+            $("#sendButton").click(function() {
+                var itemName = $.trim($("#itemName").val());
+                if(itemName == "") {
+                    alert("이름을 입력하세요.");
+                    $("#itemName").focus();
+                    return;
+                 }
+
+                var kinds = $("#kinds").val();
+                if(kinds == "") {
+                    alert("분류를 선택하세요.");
+                    $("#kinds").focus();
+                    return;
+                 }
+
+                $.ajax({
+                    type:"GET",
+                    url: kinds+"/"+itemName,
+                    success:function(args){
+                        $("#resultPrice").html(args.price);
+                    },
+                    error:function(request,status){
+                        alert("code = "+ request.status);
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <span>분류</span>
+        <select class="form-select" id="kinds">
+            <option selected value="">분류를 선택하세요.</option>
+            <option value="fruit">과일</option>
+            <option value="vegetable">채소</option>
+        </select>
+    </div>
+
+    <div class="py-5 text-center">
+        <label>이름</label>
+        <input type="text" id="itemName" class="form-control">
+        <input type="button" value="조회" id="sendButton"/>
+    </div>
+
+    <div class="py-5 text-center">
+        <span>가격</span>
+        <span id="resultPrice"></span>
+    </div>
+</div>
+</body>
+</html>
